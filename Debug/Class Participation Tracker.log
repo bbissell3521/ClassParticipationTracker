@@ -1,0 +1,3 @@
+﻿  Course.cpp
+D:\Repos\Software Engineering\Class Participation Tracker\Course.cpp(71,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Class Participation Tracker.vcxproj -> D:\Repos\Software Engineering\Class Participation Tracker\Debug\Class Participation Tracker.exe
