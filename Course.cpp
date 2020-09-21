@@ -17,7 +17,7 @@ using namespace std;
 //fileName is the name of the file which contains student names to be added to the course.
 Course::Course(string name, string fileName) {
 	//set the course name.
-	courseName = name;
+	this -> courseName = name;
 	//Helper variables for setting names from file.
 	string studentName;
 	
@@ -26,17 +26,13 @@ Course::Course(string name, string fileName) {
 	nameFile.open(fileName);
 	//Check to make sure file opened without errors.
 	if (nameFile.is_open()) {
+		cout << "Opening name file." << endl;
 		//Get the next line of the file
 		while (getline(nameFile, studentName)) {
 			//If there is 50 or less students then add the student to the class and increase the count by 1
 			if (students.size() <= 50) {
 				Student spush = Student(studentName);
-				cout << spush.getName() << " has " << spush.getQuestionsAsked() << endl;
 				students.push_back(spush);
-				/**for (int i = 0; i < students.size(); i++) {
-					cout << students.at(i).getName() << endl;
-					cout << students.at(i).getQuestionsAsked() << endl;
-				}*/
 			}
 			else {
 				//Throws error if there are too many student names.
@@ -70,8 +66,14 @@ Student Course::getRandomStudent() {
 	int studentNum;
 	srand(time(NULL));
 
-	studentNum = rand() % getNumOfStudents();
-	return students.at(studentNum);
+	if (getNumOfStudents() > 0) {
+		studentNum = rand() % getNumOfStudents();
+		return students.at(studentNum);
+	}
+	else {
+		cout << "No students in class." << endl;
+		return Student("NO STUDENTS");
+	}
 }
 
 Course::~Course() {

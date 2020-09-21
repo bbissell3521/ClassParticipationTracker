@@ -1,3 +1,6 @@
-﻿  Course.cpp
-D:\Repos\Software Engineering\Class Participation Tracker\Course.cpp(71,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Class Participation Tracker.vcxproj -> D:\Repos\Software Engineering\Class Participation Tracker\Debug\Class Participation Tracker.exe
+﻿  Class Participation Tracker.cpp
+D:\Repos\Software Engineering\ClassParticipationTracker\Class Participation Tracker.cpp(88,23): warning C4018: '<': signed/unsigned mismatch
+D:\Repos\Software Engineering\ClassParticipationTracker\Class Participation Tracker.cpp(107,22): warning C4018: '<=': signed/unsigned mismatch
+D:\Repos\Software Engineering\ClassParticipationTracker\Class Participation Tracker.cpp(130,23): warning C4018: '>': signed/unsigned mismatch
+D:\Repos\Software Engineering\ClassParticipationTracker\Class Participation Tracker.cpp(131): warning C4715: 'selectCourse': not all control paths return a value
+  Class Participation Tracker.vcxproj -> D:\Repos\Software Engineering\ClassParticipationTracker\Debug\Class Participation Tracker.exe

@@ -4,7 +4,6 @@
 #pragma once
 #include <iostream>
 #include <list>
-#include "Rating.h"
 using namespace std;
 
 class Student

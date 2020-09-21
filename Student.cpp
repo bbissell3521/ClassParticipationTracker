@@ -11,11 +11,11 @@ This takes in the students name in n.
 This also sets all ratings to 0 for the student by default.
 */
 Student::Student(string n) {
-	name = n;
-	int satis = 0;
-	int unsat = 0;
-	int excep = 0;
-	int skip = 0;
+	this-> name = n;
+	this-> satis = 0;
+	this-> unsat = 0;
+	this-> excep = 0;
+	this-> skip = 0;
 }
 
 //Basic getter for the students name
@@ -24,22 +24,24 @@ string Student::getName() {
 }
 //Incremental method to add 1 to the number of satisfactory ratings
 void Student::giveSatis() {
-	satis++;
+	this-> satis++;
 }
 //Incremental method to add 1 to the number of unsatisfactory ratings
 void Student::giveUnsat() {
-	unsat++;
+	this-> unsat++;
 }
 //Incremental method to add 1 to the number of exceptional ratings
 void Student::giveExcep() {
-	excep++;
+	this-> excep++;
 }
 //Incremental method to add 1 to the number of skip ratings
 void Student::giveSkip() {
-	skip++;
+	this-> skip++;
 }
 //This returns the total number of questions the student has a rating for.
 int Student::getQuestionsAsked() {
+	cout << "---------- Student Statistics ----------" << endl;
+	cout << "Name: " << name << endl;
 	cout << "sat:" << satis << endl;
 	cout << "unsat:" << unsat << endl;
 	cout << "excep:" << excep << endl;

@@ -9,7 +9,7 @@
 
 using namespace std;
 
-void printCourseList(vector<Course> list, int listSize);
+void printCourseList(vector<Course> list);
 Course selectCourse(vector<Course> list);
 void rateStudent(int rating, Student* student);
 void shutdown(vector<Course> list);
@@ -21,21 +21,19 @@ int main()
     int listSize = 0;
     bool running = true;
 
-    // Debugging stuff
+    // Start with 1 starter course to show function
     Course c1 = Course("class 1", "Class1.csv");
-    //Course c2 = Course("class 2");
 
     //Push the course into the list
     courseList.push_back(c1);
-    //courseList.push_back(c2);
+ 
 
     // Function
-    //Initial user input and information
+    //Initial information
     cout << "Welcome to the class participation tracker." << endl;
-    printCourseList(courseList, courseList.size());
+
     // Select Initial course
     Course selectedCourse = selectCourse(courseList);
-
 
     //User input loop
     //Do this while the selected course is 
@@ -46,8 +44,8 @@ int main()
         //Get a random student from the selected course.
         Student randStudent = selectedCourse.getRandomStudent();
         //Report student name and how many qeustions they have been asked
-        cout << "--------------- Random Student ---------------" << endl;
-        cout << randStudent.getName() << "has been asked " << randStudent.getQuestionsAsked() << endl;
+        cout << endl <<  "--------------- Random Student ---------------" << endl;
+        cout << randStudent.getName() << "has been asked " << randStudent.getQuestionsAsked() << endl << endl;
         //Give list of inputs accepted.
         cout << "--------------- Inputs ---------------" << endl;
         cout << "To give a rating as following: " << endl << " 1 for skip " << endl << " 2 for Unsatisfactory " << endl;
@@ -59,9 +57,11 @@ int main()
         if (selector < 5 && selector > 0) {
             rateStudent(selector, &randStudent);
         }
+        //Select a new course
         else if (selector == 5) {
             selectedCourse = selectCourse(courseList);
         }
+        //Exit the application
         else if (selector == 6) {
             running = false;
         }
@@ -79,17 +79,12 @@ void shutdown(vector<Course> list) {
 }
 
 //Prints the current course list to the console with some input instructions. 
-void printCourseList(vector<Course> list, int listSize) {
-    // Basic information posted
-    cout << "Please select a course you would like to work on from the list below." << endl;
-    cout << "If you would like to create a new course please type " << list.size() + 1 << endl;
-    cout << "If you would like to exit the program type " << list.size() + 2 << endl;
+void printCourseList(vector<Course> list) {
     // List all courses stored at current time. 
     for (int i = 0; i < list.size(); i++) {
         cout << i + 1 << " | " << list.at(i).getCourseName() << " has " << list.at(i).getNumOfStudents() << " students."  << endl;
     }
 
-    //input loop call. 
 }
 
 //Take user input to select the course which they want to manipulate. Returns a course which the user selected
@@ -100,32 +95,46 @@ Course selectCourse(vector<Course> list) {
     
     //Run this 1 time before checking that the person selected a valid instruction.
     do {
-        cout << "enter course number" << endl;
+        // Basic information posted
+        cout << "Please select a course you would like to work on from the list below." << endl;
+        cout << "If you would like to create a new course please type " << list.size() + 1 << endl;
+        cout << "If you would like to exit the program type " << list.size() + 2 << endl;
+        printCourseList(list);
+        cout << "Enter the input you would like to perform" << endl;
         cin >> selector;
-        //Create a new course if the user input is 1 over the number of courses, this matches the above instructions
-        if (selector == list.size() + 1) {
-            cout << "Creating new course" << endl;
-            system("pause");
+
+        //If the user inputed a valid number then select that course and return it.
+        if (selector <= list.size()) {
+            Course select = list.at(selector - 1);
+            cout << "You have selected " << select.getCourseName() << endl;
+            return select;
         }
+
+        //Create a new course if the user input is 1 over the number of courses, this matches the above instructions
+        else if (selector == list.size() + 1) {
+            string name;
+            cout << "Creating new course" << endl << endl;
+            cout << "What would you like the name of the course to be." << endl;
+            cout << "There needs to be a file in this directory with coursename.csv as the title." << endl;
+            cin >> name;
+            //Create a new course with the course name given and the filename associated with that course.
+            Course c = Course(name, name.append(".csv"));
+            list.push_back(c);
+        }
+
         //Exit the program if the user input is 2 over the number of courses, this matches the above instructions.
         else if (selector == list.size() + 2) {
             cout << "Exiting Now." << endl;
             system("pause");
         }
-        //If the user inputed a valid number then select that course and return it.
-        else if (selector <= list.size()) {
-            Course select = list.at(selector - 1);
-            cout << "You have selected " << select.getCourseName() << endl;
-            return select;
-        }
-        //Check that the selection isnt bigger then the list of options.
-    } while (selector > list.size());
+
+      //Check that the selection is one of the classes.
+    } while (selector > list.size() - 1);
 }
 
 //Take user input to rate the students answer to the questions.
 void rateStudent(int rating, Student* student) {
-    cout << "5" << endl;
-    //When user inputs 1 add a skip to student
+    //Based on input give the correct rating
     if (rating == 1) {
         student->giveSkip();
     }
@@ -138,5 +147,4 @@ void rateStudent(int rating, Student* student) {
     else if (rating == 4) {
         student->giveExcep();
     }
-    cout << student->getName() << "has been now asked " << student->getQuestionsAsked() << endl;
 }
